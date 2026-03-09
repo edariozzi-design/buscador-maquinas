@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Buscador de Máquinas</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./img/favicon.ico.ico" type="image/x-icon">
+
+<link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <img src="./img/logo.jpeg" alt="logo" class="logo-img">
+
+    <h1>Buscador de Máquinas</h1>
+
+    <!-- BUSCADOR -->
+    <div class="buscador">
+
+        <form autocomplete="off" onsubmit="buscarMaquina(); return false;">
+
+            <input
+            type="text"
+            id="valorBusqueda"
+            placeholder="Ingrese máquina o locación"
+            inputmode="numeric"
+            autocomplete="off"
+            >
+
+            <button type="submit" class="button-buscar">Buscar</button>
+
+        </form>
+
+    </div>
+
+    <button onclick="nuevaBusqueda()" class="btn-nueva">
+Nueva búsqueda
+</button>
+
+
+    <!-- RESULTADOS -->
+    <div id="resultado"></div>
+
+    <!-- VISOR DE PLANO -->
+    <div id="plano"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

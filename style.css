@@ -1,0 +1,209 @@
+/* ===== RESET ===== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+/* ===== BODY ===== */
+
+body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background-image:url(./img/fondo-slots.jpg);
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    background-attachment:fixed;
+    text-align:center;
+    padding:20px;
+    min-height:100vh;
+}
+
+/* ===== CONTENEDOR ===== */
+
+.contenedor{
+    width:95%;
+    max-width:600px;
+    margin:40px auto;
+}
+
+/* ===== LOGO ===== */
+
+.logo-img{
+    width:120px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+/* ===== TITULO ===== */
+
+h1{
+    margin:0 auto 25px auto;
+    padding:15px 30px;
+    background:linear-gradient(135deg,#f4f5f5,#4b6584);
+    color:#111;
+    border-radius:12px;
+    font-weight:500;
+    letter-spacing:1px;
+    box-shadow:0px 10px 25px rgba(0,0,0,0.15);
+    width:fit-content;
+}
+
+/* ===== INPUT ===== */
+
+#valorBusqueda{
+    display:block;
+    margin:0 auto 15px auto;
+    padding:14px;
+    width:100%;
+    max-width:400px;
+    font-size:18px;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+#valorBusqueda:focus{
+    border-color:#4b6584;
+    box-shadow:0 0 8px rgba(75,101,132,0.3);
+    outline:none;
+}
+
+/* ===== BOTON ===== */
+
+button{
+    display:block;
+    margin:0 auto 20px auto;
+    padding:14px;
+    width:100%;
+    max-width:400px;
+    font-size:18px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    background:linear-gradient(135deg,#f4f5f5,#4b6584);
+    color:#111;
+}
+
+.button-buscar:hover{
+    background: #7babe3;
+}
+
+
+.btn-nueva{
+    padding:10px 15px;
+    border:none;
+    border-radius:6px;
+    background:linear-gradient(135deg,#f4f5f5,#4b6584);
+    color:rgb(5, 5, 5);
+    cursor:pointer;
+}
+
+.btn-nueva:hover{
+    background: #7babe3;
+}
+
+/* ===== RESULTADO ===== */
+
+#resultado{
+    margin-top:20px;
+}
+
+/* ===== TARJETAS ===== */
+
+.tarjeta{
+    background:linear-gradient(135deg,#f4f5f5,#4b6584);
+    border-radius:12px;
+    padding:15px;
+    margin:15px auto;
+    width:95%;
+    max-width:400px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+    text-align:center;
+}
+
+.tarjeta h3{
+    margin-bottom:10px;
+    color:#003366;
+}
+
+/* ===== LINK ZONA ===== */
+
+.zona-link{
+    color:#5100ff;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.zona-link:hover{
+    color:#b43406;
+}
+
+/* ===== ERROR ===== */
+
+.mensaje-error{
+    background:#f8d7da;
+    color:#842029;
+    padding:10px 15px;
+    border-radius:8px;
+    margin:15px auto;
+    max-width:400px;
+}
+
+/* ===== PLANO ===== */
+
+.visor-plano img{
+    width:100%;
+    height:auto;
+}
+
+.visor-plano{
+    overflow-x:auto;
+    margin-top:20px;
+}
+
+.visor-plano img{
+    width:100%;
+    height:auto;
+    border-radius:10px;
+    cursor:zoom-in;
+}
+
+/* ===== CELULAR ===== */
+
+@media (max-width:600px){
+
+    h1{
+        font-size:20px;
+    }
+
+    #valorBusqueda{
+        font-size:18px;
+    }
+
+    button{
+        font-size:18px;
+    }
+
+}
+
+@media (max-width:600px){
+
+    body{
+        background-attachment: scroll;
+    }
+
+}
+
+.visor-plano{
+    overflow-x:auto;
+}
+
+@media (max-width:600px){
+
+    button{
+        font-size:20px;
+        padding:16px;
+    }
+
+}
