@@ -112,35 +112,21 @@ function buscarMaquina() {
 }
 
 // ===============================
-// MOSTRAR PLANO (prueba .jpg y .png)
+// MOSTRAR PLANO
 // ===============================
 function mostrarPlano(zona) {
-    zona = String(zona).trim(); 
-    let planoEncontrado = null;
-
-    for (const key in planos) {
-        if (planos[key].includes(zona)) {
-            // Probar primero JPG
-            const jpg = `planos/${key}.jpg`;
-            const png = `planos/${key}.png`;
-            fetch(jpg, { method: "HEAD" })
-            .then(res => {
-                if (res.ok) abrirOverlay(jpg);
-                else {
-                    // Si JPG no existe, probar PNG
-                    fetch(png, { method: "HEAD" })
-                    .then(res2 => {
-                        if (res2.ok) abrirOverlay(png);
-                        else alert("No hay plano para esta zona");
-                    });
-                }
-            });
-            return; // salir del for
-        }
+    zona = String(zona).trim(); // ❌ No eliminar letras ni números
+    const plano = planos[zona];
+    if (!plano) {
+        alert("No hay plano para esta zona");
+        return;
     }
-    alert("No hay plano para esta zona");
+    abrirOverlay(plano);
 }
 
+// ===============================
+// OVERLAY
+// ===============================
 function abrirOverlay(plano) {
     const overlay = document.createElement("div");
     overlay.style.position = "fixed";
@@ -148,7 +134,7 @@ function abrirOverlay(plano) {
     overlay.style.left = 0;
     overlay.style.width = "100%";
     overlay.style.height = "100%";
-    overlay.style.background = "rgba(0,0,0,0.90)";
+    overlay.style.background = "rgba(0,0,0,0.9)";
     overlay.style.display = "flex";
     overlay.style.flexDirection = "column";
     overlay.style.alignItems = "center";
@@ -180,8 +166,7 @@ function abrirOverlay(plano) {
 // ===============================
 // ENTER PARA BUSCAR
 // ===============================
-document.getElementById("valorBusqueda")
-.addEventListener("keypress", function(event){
+document.getElementById("valorBusqueda").addEventListener("keypress", function(event){
     if(event.key === "Enter") buscarMaquina();
 });
 
