@@ -15,28 +15,34 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
     }
 
     return response.text();
+
 })
 .then(texto => {
 
-    const filas = texto.split(/\r?\n/).filter(f => f.trim() !== "");
+    const filas = texto
+        .split(/\r?\n/)
+        .filter(f => f.trim() !== "");
 
     maquinas = filas.map(fila => {
 
         const columnas = fila.split(/\t|,|;/);
 
         return {
+
             maquina: columnas[0]?.trim() || "",
             locacion: columnas[1]?.trim() || "",
             sector: columnas[2]?.trim() || "",
-            zona: columnas[3]?.trim() || "",
+            zona: columnas[3]?.replace(/[^0-9]/g,"") || "",
             modelo: columnas[4]?.trim() || "",
             juego: columnas[5]?.trim() || "",
             denominacion: columnas[6]?.trim() || ""
+
         };
 
     });
 
     console.log("Máquinas cargadas:", maquinas.length);
+    console.log("Ejemplo:", maquinas[0]);
 
 })
 .catch(error => {
@@ -48,21 +54,27 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
 // PLANOS
 // ===============================
 const planos = {
+
     "54": "planos/M7.jpg",
     "55": "planos/M7.jpg",
     "56": "planos/M7.jpg",
     "63": "planos/M7.jpg",
+
     "39": "planos/G4-Centro.jpg",
     "41": "planos/G4-Centro.jpg",
     "42": "planos/G4-Centro.jpg",
     "57": "planos/G4-Centro.jpg",
+
     "46": "planos/G4-Norte.jpg",
     "43": "planos/G4-Norte.jpg",
+
     "48": "planos/G4-Sur.jpg",
     "47": "planos/G4-Sur.jpg",
     "45": "planos/G4-Sur.jpg",
+
     "49": "planos/Entre-piso.jpg",
     "51": "planos/VIP.jpg",
+
     "11": "planos/PB-esp.jpg",
     "12": "planos/PB-esp.jpg",
     "13": "planos/PB-esp.jpg",
@@ -73,8 +85,11 @@ const planos = {
     "18": "planos/PB-esp.jpg",
     "19": "planos/PB-esp.jpg",
     "20": "planos/PB-esp.jpg",
+
     "21": "planos/balcon-esp.png",
     "22": "planos/balcon-esp.png",
+
+    "62": "planos/dolar.jpg"
 };
 
 
@@ -83,21 +98,28 @@ const planos = {
 // ===============================
 function buscarMaquina() {
 
-    const valor = document.getElementById("valorBusqueda").value.trim();
+    const valor = document
+        .getElementById("valorBusqueda")
+        .value
+        .trim()
+        .toLowerCase();
+
     const resultado = document.getElementById("resultado");
 
+    // LIMPIA RESULTADOS ANTERIORES
     resultado.innerHTML = "";
 
-    if (valor === "") {
-
-        resultado.innerHTML =
-        `<div class="mensaje-error">⚠️ Ingrese número de máquina o locación</div>`;
-
-        return;
-    }
+    // ACTUALIZA URL
+    const url = new URL(window.location);
+    url.searchParams.set("buscar", valor);
+    window.history.pushState({}, "", url);
 
     const encontrados = maquinas.filter(m =>
-        m.maquina.includes(valor) || m.locacion.includes(valor)
+        m.maquina.toLowerCase().includes(valor) ||
+        m.locacion.toLowerCase().includes(valor) ||
+        m.sector.toLowerCase().includes(valor) ||
+        m.modelo.toLowerCase().includes(valor) ||
+        m.juego.toLowerCase().includes(valor)
     );
 
     if (encontrados.length === 0) {
@@ -125,11 +147,11 @@ function buscarMaquina() {
             </span>
             </p>
 
-            <p><strong>JUEGO:</strong> ${m.juego}</p>
-
             <p><strong>MODELO:</strong> ${m.modelo}</p>
 
-            <p><strong>MONEDA:</strong> ${m.denominacion || "No especificada"}</p>
+            <p><strong>JUEGO:</strong> ${m.juego}</p>
+
+            <p><strong>DENOMINACIÓN:</strong> ${m.denominacion || "No especificada"}</p>
         `;
 
         resultado.appendChild(card);
@@ -144,11 +166,17 @@ function buscarMaquina() {
 
 
 // ===============================
-// MOSTRAR PLANO CON ZOOM Y DRAG
+// MOSTRAR PLANO
 // ===============================
 function mostrarPlano(zona) {
 
+    zona = zona.trim().replace(/\s/g,"");
+
+    console.log("Zona buscada:", zona);
+
     const plano = planos[zona];
+
+    console.log("Plano encontrado:", plano);
 
     if (!plano) {
         alert("No hay plano para esta zona");
@@ -169,80 +197,11 @@ function mostrarPlano(zona) {
     overlay.style.justifyContent = "center";
     overlay.style.zIndex = 1000;
 
-
-    const contenedor = document.createElement("div");
-    contenedor.style.overflow = "hidden";
-    contenedor.style.cursor = "grab";
-
-
     const img = document.createElement("img");
 
     img.src = plano;
     img.style.maxWidth = "90vw";
     img.style.maxHeight = "80vh";
-    img.style.transform = "scale(1)";
-    img.style.transition = "transform 0.1s ease";
-    img.style.userSelect = "none";
-    img.draggable = false;
-
-
-    let escala = 1;
-    let posX = 0;
-    let posY = 0;
-    let arrastrando = false;
-    let inicioX, inicioY;
-
-
-    // ZOOM
-    overlay.addEventListener("wheel", e => {
-
-        e.preventDefault();
-
-        if (e.deltaY < 0) {
-            escala += 0.1;
-        } else {
-            escala -= 0.1;
-        }
-
-        escala = Math.min(Math.max(1, escala), 5);
-
-        img.style.transform =
-        `translate(${posX}px, ${posY}px) scale(${escala})`;
-
-    });
-
-
-    // DRAG
-    img.addEventListener("mousedown", e => {
-
-        arrastrando = true;
-
-        inicioX = e.clientX - posX;
-        inicioY = e.clientY - posY;
-
-        contenedor.style.cursor = "grabbing";
-
-    });
-
-    document.addEventListener("mousemove", e => {
-
-        if (!arrastrando) return;
-
-        posX = e.clientX - inicioX;
-        posY = e.clientY - inicioY;
-
-        img.style.transform =
-        `translate(${posX}px, ${posY}px) scale(${escala})`;
-
-    });
-
-    document.addEventListener("mouseup", () => {
-
-        arrastrando = false;
-        contenedor.style.cursor = "grab";
-
-    });
-
 
     const btnCerrar = document.createElement("button");
 
@@ -261,10 +220,7 @@ function mostrarPlano(zona) {
         document.body.removeChild(overlay);
     };
 
-
-    contenedor.appendChild(img);
-
-    overlay.appendChild(contenedor);
+    overlay.appendChild(img);
     overlay.appendChild(btnCerrar);
 
     document.body.appendChild(overlay);
@@ -276,28 +232,43 @@ function mostrarPlano(zona) {
 // ENTER PARA BUSCAR
 // ===============================
 document.getElementById("valorBusqueda")
-.addEventListener("keypress", function(event){
+.addEventListener("keypress", function (event) {
 
-    if(event.key === "Enter"){
-
+    if (event.key === "Enter") {
         buscarMaquina();
-
     }
 
 });
 
-function nuevaBusqueda(){
 
-    // limpiar input
+// ===============================
+// NUEVA BUSQUEDA
+// ===============================
+function nuevaBusqueda() {
+
     document.getElementById("valorBusqueda").value = "";
-
-    // limpiar resultado
     document.getElementById("resultado").innerHTML = "";
-
-    // limpiar plano si aparece
-    document.getElementById("plano").innerHTML = "";
-
-    // volver a poner cursor en el buscador
     document.getElementById("valorBusqueda").focus();
 
 }
+
+
+// ===============================
+// BUSCAR DESDE URL
+// ===============================
+window.addEventListener("load", () => {
+
+    const params = new URLSearchParams(window.location.search);
+    const busqueda = params.get("buscar");
+
+    if (busqueda) {
+
+        document.getElementById("valorBusqueda").value = busqueda;
+
+        setTimeout(() => {
+            buscarMaquina();
+        }, 200);
+
+    }
+
+});
