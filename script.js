@@ -25,7 +25,7 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
 
     maquinas = filas.map(fila => {
 
-        const columnas = fila.split("\t");
+        const columnas = fila.split(";");
 
         return {
 
