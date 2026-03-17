@@ -29,13 +29,13 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
 
 return {
 
-    maquina: columnas[0]?.trim() || "",
-    locacion: columnas[1]?.trim() || "",
-    moneda: columnas[2]?.trim() || "",
-    zona: columnas[3]?.replace(/[^0-9]/g,"") || "",
-    modelo: columnas[4]?.trim() || "",
-    juego: columnas[5]?.trim() || "",
-    denominacion: columnas[6]?.trim() || ""
+    maquina: columnas[0] ? columnas[0].trim() : "",
+    locacion: columnas[1] ? columnas[1].trim() : "",
+    moneda: columnas[2] ? columnas[2].trim() : "",
+    zona: columnas[3] ? columnas[3].trim() : "",
+    modelo: columnas[4] ? columnas[4].trim() : "",
+    juego: columnas[5] ? columnas[5].trim() : "",
+    denominacion: columnas[6] ? columnas[6].trim() : ""
 
 };
 
