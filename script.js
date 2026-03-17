@@ -33,15 +33,34 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
 // PLANOS
 // ===============================
 const planos = {
-    "M7": ["54","55","56","63"],
-    "G4-Centro": ["39","41","42","57"],
-    "G4-Norte": ["43","46"],
-    "G4-Sur": ["45","47","48"],
-    "PB-esp": ["11","12","13","14","15","16","17","18","19","20"],
-    "balcon-esp": ["21","22"],
-    "Entre-piso": ["49"],
-    "VIP": ["51"],
-    "dolar": ["62"]
+    "54": "planos/M7.jpg",
+    "55": "planos/M7.jpg",
+    "56": "planos/M7.jpg",
+    "63": "planos/M7.jpg",
+    "39": "planos/G4-Centro.jpg",
+    "41": "planos/G4-Centro.jpg",
+    "42": "planos/G4-Centro.jpg",
+    "57": "planos/G4-Centro.jpg",
+    "46": "planos/G4-Norte.jpg",
+    "43": "planos/G4-Norte.jpg",
+    "48": "planos/G4-Sur.jpg",
+    "47": "planos/G4-Sur.jpg",
+    "45": "planos/G4-Sur.jpg",
+    "49": "planos/Entre-piso.jpg",
+    "51": "planos/VIP.jpg",
+    "11": "planos/PB-esp.jpg",
+    "12": "planos/PB-esp.jpg",
+    "13": "planos/PB-esp.jpg",
+    "14": "planos/PB-esp.jpg",
+    "15": "planos/PB-esp.jpg",
+    "16": "planos/PB-esp.jpg",
+    "17": "planos/PB-esp.jpg",
+    "18": "planos/PB-esp.jpg",
+    "19": "planos/PB-esp.jpg",
+    "20": "planos/PB-esp.jpg",
+    "21": "planos/balcon-esp.png",
+    "22": "planos/balcon-esp.png",
+    "62": "planos/dolar.jpg"
 };
 
 // ===============================
@@ -96,7 +115,7 @@ function buscarMaquina() {
 // MOSTRAR PLANO (prueba .jpg y .png)
 // ===============================
 function mostrarPlano(zona) {
-    zona = String(zona).trim().replace(/[^0-9]/g,"");
+    zona = String(zona).trim(); 
     let planoEncontrado = null;
 
     for (const key in planos) {
