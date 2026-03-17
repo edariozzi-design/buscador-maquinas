@@ -170,7 +170,7 @@ function buscarMaquina() {
 // ===============================
 function mostrarPlano(zona) {
 
-    zona = zona.trim().replace(/\s/g,"");
+    zona = zona.toString().trim().replace(/[^0-9]/g,"");
 
     console.log("Zona buscada:", zona);
 
