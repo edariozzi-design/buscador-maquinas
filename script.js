@@ -12,7 +12,7 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
         return {
             maquina: c[0]?.trim() || "",
             locacion: c[1]?.trim() || "",
-            moneda: c[2]?.trim() || "",
+            sector: c[2]?.trim() || "",
             zona: c[3]?.trim() || "",
             modelo: c[4]?.trim() || "",
             juego: c[5]?.trim() || "",
@@ -84,7 +84,7 @@ function buscarMaquina() {
         card.innerHTML = `
             <h3>MAQUINA ${m.maquina}</h3>
             <p><strong>LOCACION:</strong> ${m.locacion}</p>
-            <p><strong>MONEDA:</strong> ${m.moneda}</p>
+            <p><strong>SECTOR:</strong> ${m.sector}</p>
             <p><strong>ZONA:</strong> <span class="zona-link" onclick="mostrarPlano('${m.zona}')">${m.zona}</span></p>
             <p><strong>MODELO:</strong> ${m.modelo}</p>
             <p><strong>JUEGO:</strong> ${m.juego}</p>
