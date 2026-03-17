@@ -96,7 +96,7 @@ function buscarMaquina() {
 // MOSTRAR PLANO
 // ===============================
 function mostrarPlano(zona) {
-    zona = String(zona).trim(); // ✅ NO modificar nada
+    zona = String(zona).trim(); // ✅ No modificar
     const plano = planos[zona];
     if (!plano) {
         alert("No hay plano para esta zona");
