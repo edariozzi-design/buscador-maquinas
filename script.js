@@ -27,17 +27,17 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
 
         const columnas = fila.split(";");
 
-        return {
+return {
 
-            maquina: columnas[0]?.trim() || "",
-            locacion: columnas[1]?.trim() || "",
-            sector: columnas[2]?.trim() || "",
-            zona: columnas[3]?.replace(/[^0-9]/g,"") || "",
-            modelo: columnas[4]?.trim() || "",
-            juego: columnas[5]?.trim() || "",
-            denominacion: columnas[6]?.trim() || ""
+    maquina: columnas[0]?.trim() || "",
+    locacion: columnas[1]?.trim() || "",
+    moneda: columnas[2]?.trim() || "",
+    zona: columnas[3]?.replace(/[^0-9]/g,"") || "",
+    modelo: columnas[4]?.trim() || "",
+    juego: columnas[5]?.trim() || "",
+    denominacion: columnas[6]?.trim() || ""
 
-        };
+};
 
     });
 
