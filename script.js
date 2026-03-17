@@ -3,7 +3,7 @@
 // ===============================
 let maquinas = [];
 
-fetch("/buscador_maquinas.csv?v=" + new Date().getTime())
+fetch("buscador_maquinas.csv?v=" + new Date().getTime())
 .then(r => r.ok ? r.text() : Promise.reject("No se pudo cargar CSV"))
 .then(texto => {
     const filas = texto.split(/\r?\n/).filter(f => f.trim() !== "");
@@ -24,48 +24,41 @@ fetch("/buscador_maquinas.csv?v=" + new Date().getTime())
 .catch(e => console.error(e));
 
 // ===============================
-// Planos con rutas absolutas
+// Planos con rutas relativas
 // ===============================
 const planos = {
-    "54": "/planos/M7.jpg",
-    "55": "/planos/M7.jpg",
-    "56": "/planos/M7.jpg",
-    "63": "/planos/M7.jpg",
-
-    "39": "/planos/G4-Centro.jpg",
-    "41": "/planos/G4-Centro.jpg",
-    "42": "/planos/G4-Centro.jpg",
-    "57": "/planos/G4-Centro.jpg",
-
-    "46": "/planos/G4-Norte.jpg",
-    "43": "/planos/G4-Norte.jpg",
-
-    "48": "/planos/G4-Sur.jpg",
-    "47": "/planos/G4-Sur.jpg",
-    "45": "/planos/G4-Sur.jpg",
-
-    "49": "/planos/Entre-piso.jpg",
-    "51": "/planos/VIP.jpg",
-
-    "11": "/planos/PB-esp.jpg",
-    "12": "/planos/PB-esp.jpg",
-    "13": "/planos/PB-esp.jpg",
-    "14": "/planos/PB-esp.jpg",
-    "15": "/planos/PB-esp.jpg",
-    "16": "/planos/PB-esp.jpg",
-    "17": "/planos/PB-esp.jpg",
-    "18": "/planos/PB-esp.jpg",
-    "19": "/planos/PB-esp.jpg",
-    "20": "/planos/PB-esp.jpg",
-
-    "21": "/planos/balcon-esp.png",
-    "22": "/planos/balcon-esp.png",
-
-    "62": "/planos/dolar.jpg"
+    "54": "planos/M7.jpg",
+    "55": "planos/M7.jpg",
+    "56": "planos/M7.jpg",
+    "63": "planos/M7.jpg",
+    "39": "planos/G4-Centro.jpg",
+    "41": "planos/G4-Centro.jpg",
+    "42": "planos/G4-Centro.jpg",
+    "57": "planos/G4-Centro.jpg",
+    "46": "planos/G4-Norte.jpg",
+    "43": "planos/G4-Norte.jpg",
+    "48": "planos/G4-Sur.jpg",
+    "47": "planos/G4-Sur.jpg",
+    "45": "planos/G4-Sur.jpg",
+    "49": "planos/Entre-piso.jpg",
+    "51": "planos/VIP.jpg",
+    "11": "planos/PB-esp.jpg",
+    "12": "planos/PB-esp.jpg",
+    "13": "planos/PB-esp.jpg",
+    "14": "planos/PB-esp.jpg",
+    "15": "planos/PB-esp.jpg",
+    "16": "planos/PB-esp.jpg",
+    "17": "planos/PB-esp.jpg",
+    "18": "planos/PB-esp.jpg",
+    "19": "planos/PB-esp.jpg",
+    "20": "planos/PB-esp.jpg",
+    "21": "planos/balcon-esp.png",
+    "22": "planos/balcon-esp.png",
+    "62": "planos/dolar.jpg"
 };
 
 // ===============================
-// Buscar máquinas
+// Funciones de búsqueda
 // ===============================
 function buscarMaquina() {
     const valor = document.getElementById("valorBusqueda").value.trim().toLowerCase();
@@ -76,10 +69,9 @@ function buscarMaquina() {
     url.searchParams.set("buscar", valor);
     window.history.pushState({}, "", url);
 
-    const encontrados = maquinas.filter(m => {
-        return [m.maquina, m.locacion, m.moneda, m.modelo, m.juego]
-            .some(x => (x||"").toLowerCase().includes(valor));
-    });
+    const encontrados = maquinas.filter(m =>
+        [m.maquina, m.locacion, m.moneda, m.modelo, m.juego].some(x => (x||"").toLowerCase().includes(valor))
+    );
 
     if (!encontrados.length) {
         resultado.innerHTML = "<p>No se encontraron resultados</p>";
@@ -103,9 +95,6 @@ function buscarMaquina() {
     });
 }
 
-// ===============================
-// Mostrar plano (overlay)
-// ===============================
 function mostrarPlano(zona){
     zona = zona.trim();
     const plano = planos[zona];
@@ -120,23 +109,27 @@ function mostrarPlano(zona){
     overlay.style.zIndex=1000;
 
     const img = document.createElement("img");
-    img.src=plano; img.style.maxWidth="90vw"; img.style.maxHeight="80vh";
+    img.src=plano;
+    img.style.maxWidth="90vw";
+    img.style.maxHeight="80vh";
 
     const btn = document.createElement("button");
-    btn.innerText="Volver al buscador"; 
-    btn.style.marginTop="20px"; btn.style.padding="12px 25px";
-    btn.style.fontSize="16px"; btn.style.borderRadius="8px";
-    btn.style.border="none"; btn.style.cursor="pointer";
-    btn.style.background="#4b6584"; btn.style.color="white";
+    btn.innerText="Volver al buscador";
+    btn.style.marginTop="20px";
+    btn.style.padding="12px 25px";
+    btn.style.fontSize="16px";
+    btn.style.borderRadius="8px";
+    btn.style.border="none";
+    btn.style.cursor="pointer";
+    btn.style.background="#4b6584";
+    btn.style.color="white";
     btn.onclick=()=>document.body.removeChild(overlay);
 
-    overlay.appendChild(img); overlay.appendChild(btn);
+    overlay.appendChild(img);
+    overlay.appendChild(btn);
     document.body.appendChild(overlay);
 }
 
-// ===============================
-// Nueva búsqueda
-// ===============================
 function nuevaBusqueda(){
     document.getElementById("valorBusqueda").value="";
     document.getElementById("resultado").innerHTML="";
