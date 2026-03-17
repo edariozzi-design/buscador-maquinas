@@ -8,23 +8,16 @@ let maquinas = [];
 // ===============================
 fetch("buscador_maquinas.csv?v=" + new Date().getTime())
 .then(response => {
-
-    if (!response.ok) {
-        throw new Error("No se pudo cargar el CSV");
-    }
-
+    if (!response.ok) throw new Error("No se pudo cargar el CSV");
     return response.text();
-
 })
 .then(texto => {
-
     const filas = texto
         .split(/\r?\n/)
         .filter(f => f.trim() !== "");
 
     maquinas = filas.map(fila => {
         const columnas = fila.split(";");
-
         return {
             maquina: columnas[0] ? columnas[0].trim() : "",
             locacion: columnas[1] ? columnas[1].trim() : "",
@@ -38,7 +31,6 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
 
     console.log("Máquinas cargadas:", maquinas.length);
     console.log("Ejemplo:", maquinas[0]);
-
 })
 .catch(error => {
     console.error("Error cargando CSV:", error);
@@ -47,57 +39,33 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
 // ===============================
 // PLANOS
 // ===============================
+// Ahora definimos cada plano una sola vez y listamos todas las zonas que usan ese plano
 const planos = {
-    "54": "planos/M7.jpg",
-    "55": "planos/M7.jpg",
-    "56": "planos/M7.jpg",
-    "63": "planos/M7.jpg",
-    "39": "planos/G4-Centro.jpg",
-    "41": "planos/G4-Centro.jpg",
-    "42": "planos/G4-Centro.jpg",
-    "57": "planos/G4-Centro.jpg",
-    "46": "planos/G4-Norte.jpg",
-    "43": "planos/G4-Norte.jpg",
-    "48": "planos/G4-Sur.jpg",
-    "47": "planos/G4-Sur.jpg",
-    "45": "planos/G4-Sur.jpg",
-    "49": "planos/Entre-piso.jpg",
-    "51": "planos/VIP.jpg",
-    "11": "planos/PB-esp.jpg",
-    "12": "planos/PB-esp.jpg",
-    "13": "planos/PB-esp.jpg",
-    "14": "planos/PB-esp.jpg",
-    "15": "planos/PB-esp.jpg",
-    "16": "planos/PB-esp.jpg",
-    "17": "planos/PB-esp.jpg",
-    "18": "planos/PB-esp.jpg",
-    "19": "planos/PB-esp.jpg",
-    "20": "planos/PB-esp.jpg",
-    "21": "planos/balcon-esp.png",
-    "22": "planos/balcon-esp.png",
-    "62": "planos/dolar.jpg"
+    "M7": ["54","55","56","63"],
+    "G4-Centro": ["39","41","42","57"],
+    "G4-Norte": ["43","46"],
+    "G4-Sur": ["45","47","48"],
+    "PB-esp": ["11","12","13","14","15","16","17","18","19","20"],
+    "balcon-esp": ["21","22"],
+    "Entre-piso": ["49"],
+    "VIP": ["51"],
+    "dolar": ["62"]
 };
 
 // ===============================
 // BUSCAR MAQUINA
 // ===============================
 function buscarMaquina() {
-
-    const valor = document
-        .getElementById("valorBusqueda")
-        .value
-        .trim()
-        .toLowerCase();
-
+    const valor = document.getElementById("valorBusqueda").value.trim().toLowerCase();
     const resultado = document.getElementById("resultado");
     resultado.innerHTML = "";
 
-    // ACTUALIZA URL
+    // Actualiza URL
     const url = new URL(window.location);
     url.searchParams.set("buscar", valor);
     window.history.pushState({}, "", url);
 
-    // FILTRO CORRECTO
+    // Filtrar máquinas
     const encontrados = maquinas.filter(m => {
         const maquina = (m.maquina || "").toLowerCase();
         const locacion = (m.locacion || "").toLowerCase();
@@ -119,29 +87,22 @@ function buscarMaquina() {
         return;
     }
 
-    // MOSTRAR RESULTADOS
+    // Mostrar resultados
     encontrados.forEach((m, index) => {
-
         const card = document.createElement("div");
         card.classList.add("tarjeta");
 
         card.innerHTML = `
             <h3>MAQUINA ${m.maquina}</h3>
-
             <p><strong>LOCACION:</strong> ${m.locacion}</p>
-
             <p><strong>MONEDA:</strong> ${m.moneda}</p>
-
             <p><strong>ZONA:</strong>
-            <span class="zona-link" onclick="mostrarPlano('${m.zona}')">
-            ${m.zona}
-            </span>
+                <span class="zona-link" onclick="mostrarPlano('${m.zona}')">
+                    ${m.zona}
+                </span>
             </p>
-
             <p><strong>MODELO:</strong> ${m.modelo}</p>
-
             <p><strong>JUEGO:</strong> ${m.juego}</p>
-
             <p><strong>DENOMINACIÓN:</strong> ${m.denominacion || "No especificada"}</p>
         `;
 
@@ -150,7 +111,6 @@ function buscarMaquina() {
         setTimeout(() => {
             card.classList.add("mostrar");
         }, index * 120);
-
     });
 }
 
@@ -158,11 +118,19 @@ function buscarMaquina() {
 // MOSTRAR PLANO
 // ===============================
 function mostrarPlano(zona) {
-
     zona = String(zona).trim().replace(/[^0-9]/g,"");
-    const plano = planos[zona];
 
-    if (!plano) {
+    let planoEncontrado = null;
+
+    for (const key in planos) {
+        if (planos[key].includes(zona)) {
+            // Determinamos la extensión correcta según el plano
+            planoEncontrado = key.includes("balcon-esp") ? `planos/${key}.png` : `planos/${key}.jpg`;
+            break;
+        }
+    }
+
+    if (!planoEncontrado) {
         alert("No hay plano para esta zona");
         return;
     }
@@ -181,7 +149,7 @@ function mostrarPlano(zona) {
     overlay.style.zIndex = 1000;
 
     const img = document.createElement("img");
-    img.src = plano;
+    img.src = planoEncontrado;
     img.style.maxWidth = "90vw";
     img.style.maxHeight = "80vh";
 
@@ -200,7 +168,6 @@ function mostrarPlano(zona) {
     overlay.appendChild(img);
     overlay.appendChild(btnCerrar);
     document.body.appendChild(overlay);
-
 }
 
 // ===============================
