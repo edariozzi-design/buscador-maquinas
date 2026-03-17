@@ -114,20 +114,23 @@ function buscarMaquina() {
     url.searchParams.set("buscar", valor);
     window.history.pushState({}, "", url);
 
-    const encontrados = maquinas.filter(m =>
-        m.maquina.toLowerCase().includes(valor) ||
-        m.locacion.toLowerCase().includes(valor) ||
-        m.sector.toLowerCase().includes(valor) ||
-        m.modelo.toLowerCase().includes(valor) ||
-        m.juego.toLowerCase().includes(valor)
+    const encontrados = maquinas.filter(m => {
+
+    const maquina = String(m.maquina).toLowerCase();
+    const locacion = String(m.locacion).toLowerCase();
+    const moneda = String(m.moneda).toLowerCase();
+    const modelo = String(m.modelo).toLowerCase();
+    const juego = String(m.juego).toLowerCase();
+
+    return (
+        maquina.includes(valor) ||
+        locacion.includes(valor) ||
+        moneda.includes(valor) ||
+        modelo.includes(valor) ||
+        juego.includes(valor)
     );
 
-    if (encontrados.length === 0) {
-
-        resultado.innerHTML = "<p>No se encontraron resultados</p>";
-        return;
-
-    }
+});
 
     encontrados.forEach((m, index) => {
 
