@@ -58,7 +58,7 @@ const planos = {
 };
 
 // ===============================
-// Funciones de búsqueda
+// Funciones de búsqueda y visor de planos
 // ===============================
 function buscarMaquina() {
     const valor = document.getElementById("valorBusqueda").value.trim().toLowerCase();
