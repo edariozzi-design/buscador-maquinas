@@ -12,10 +12,7 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
     return response.text();
 })
 .then(texto => {
-    const filas = texto
-        .split(/\r?\n/)
-        .filter(f => f.trim() !== "");
-
+    const filas = texto.split(/\r?\n/).filter(f => f.trim() !== "");
     maquinas = filas.map(fila => {
         const columnas = fila.split(";");
         return {
@@ -28,18 +25,13 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
             denominacion: columnas[6] ? columnas[6].trim() : ""
         };
     });
-
     console.log("Máquinas cargadas:", maquinas.length);
-    console.log("Ejemplo:", maquinas[0]);
 })
-.catch(error => {
-    console.error("Error cargando CSV:", error);
-});
+.catch(error => console.error("Error cargando CSV:", error));
 
 // ===============================
 // PLANOS
 // ===============================
-// Ahora definimos cada plano una sola vez y listamos todas las zonas que usan ese plano
 const planos = {
     "M7": ["54","55","56","63"],
     "G4-Centro": ["39","41","42","57"],
@@ -65,21 +57,13 @@ function buscarMaquina() {
     url.searchParams.set("buscar", valor);
     window.history.pushState({}, "", url);
 
-    // Filtrar máquinas
     const encontrados = maquinas.filter(m => {
         const maquina = (m.maquina || "").toLowerCase();
         const locacion = (m.locacion || "").toLowerCase();
         const moneda = (m.moneda || "").toLowerCase();
         const modelo = (m.modelo || "").toLowerCase();
         const juego = (m.juego || "").toLowerCase();
-
-        return (
-            maquina.includes(valor) ||
-            locacion.includes(valor) ||
-            moneda.includes(valor) ||
-            modelo.includes(valor) ||
-            juego.includes(valor)
-        );
+        return maquina.includes(valor) || locacion.includes(valor) || moneda.includes(valor) || modelo.includes(valor) || juego.includes(valor);
     });
 
     if (encontrados.length === 0) {
@@ -87,11 +71,9 @@ function buscarMaquina() {
         return;
     }
 
-    // Mostrar resultados
     encontrados.forEach((m, index) => {
         const card = document.createElement("div");
         card.classList.add("tarjeta");
-
         card.innerHTML = `
             <h3>MAQUINA ${m.maquina}</h3>
             <p><strong>LOCACION:</strong> ${m.locacion}</p>
@@ -105,36 +87,42 @@ function buscarMaquina() {
             <p><strong>JUEGO:</strong> ${m.juego}</p>
             <p><strong>DENOMINACIÓN:</strong> ${m.denominacion || "No especificada"}</p>
         `;
-
         resultado.appendChild(card);
-
-        setTimeout(() => {
-            card.classList.add("mostrar");
-        }, index * 120);
+        setTimeout(() => card.classList.add("mostrar"), index * 120);
     });
 }
 
 // ===============================
-// MOSTRAR PLANO
+// MOSTRAR PLANO (prueba .jpg y .png)
 // ===============================
 function mostrarPlano(zona) {
     zona = String(zona).trim().replace(/[^0-9]/g,"");
-
     let planoEncontrado = null;
 
     for (const key in planos) {
         if (planos[key].includes(zona)) {
-            // Determinamos la extensión correcta según el plano
-            planoEncontrado = key.includes("balcon-esp") ? `planos/${key}.png` : `planos/${key}.jpg`;
-            break;
+            // Probar primero JPG
+            const jpg = `planos/${key}.jpg`;
+            const png = `planos/${key}.png`;
+            fetch(jpg, { method: "HEAD" })
+            .then(res => {
+                if (res.ok) abrirOverlay(jpg);
+                else {
+                    // Si JPG no existe, probar PNG
+                    fetch(png, { method: "HEAD" })
+                    .then(res2 => {
+                        if (res2.ok) abrirOverlay(png);
+                        else alert("No hay plano para esta zona");
+                    });
+                }
+            });
+            return; // salir del for
         }
     }
+    alert("No hay plano para esta zona");
+}
 
-    if (!planoEncontrado) {
-        alert("No hay plano para esta zona");
-        return;
-    }
-
+function abrirOverlay(plano) {
     const overlay = document.createElement("div");
     overlay.style.position = "fixed";
     overlay.style.top = 0;
@@ -149,7 +137,7 @@ function mostrarPlano(zona) {
     overlay.style.zIndex = 1000;
 
     const img = document.createElement("img");
-    img.src = planoEncontrado;
+    img.src = plano;
     img.style.maxWidth = "90vw";
     img.style.maxHeight = "80vh";
 
@@ -174,8 +162,8 @@ function mostrarPlano(zona) {
 // ENTER PARA BUSCAR
 // ===============================
 document.getElementById("valorBusqueda")
-.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") buscarMaquina();
+.addEventListener("keypress", function(event){
+    if(event.key === "Enter") buscarMaquina();
 });
 
 // ===============================
@@ -193,7 +181,6 @@ function nuevaBusqueda() {
 window.addEventListener("load", () => {
     const params = new URLSearchParams(window.location.search);
     const busqueda = params.get("buscar");
-
     if (busqueda) {
         document.getElementById("valorBusqueda").value = busqueda;
         setTimeout(() => buscarMaquina(), 200);
