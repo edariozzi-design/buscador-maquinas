@@ -3,14 +3,14 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>Buscador de Máquinas</title>
+    <title>Buscador de Máquinas</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
 
-<link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css">
 
 </head>
 
@@ -23,27 +23,20 @@
     <h1>Buscador de Máquinas</h1>
 
     <!-- BUSCADOR -->
-    <div class="buscador">
+    <form id="formBuscador" onsubmit="return false;">
+        <input id="valorBusqueda" type="text" placeholder="Maquina, locación, zona, K22" autocomplete="off">
+        <button id="btnBuscar" class="button-buscar">Buscar</button>
+        <button onclick="nuevaBusqueda()" class="btn-nueva">
+            Nueva búsqueda
+        </button>
+    </form>
 
-        <form autocomplete="off" onsubmit="buscarMaquina(); return false;">
+    <div id="resultado"></div>
 
-            <input
-            type="text"
-            id="valorBusqueda"
-            placeholder="Ingrese máquina o locación"
-            inputmode="numeric"
-            autocomplete="off"
-            >
 
-            <button type="submit" class="button-buscar">Buscar</button>
 
-        </form>
+</div>
 
-    </div>
-
-    <button onclick="nuevaBusqueda()" class="btn-nueva">
-Nueva búsqueda
-</button>
 
 
     <!-- RESULTADOS -->
@@ -52,9 +45,10 @@ Nueva búsqueda
     <!-- VISOR DE PLANO -->
     <div id="plano"></div>
 
-</div>
+    </div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
