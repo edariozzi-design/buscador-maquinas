@@ -16,26 +16,24 @@
 
 <body>
 
-<div class="contenedor">
+    <div class="contenedor">
 
-    <img src="./img/logo.jpeg" alt="logo" class="logo-img">
+        <img src="./img/logo.jpeg" alt="logo" class="logo-img">
 
-    <h1>Buscador de Máquinas</h1>
+        <h1>Buscador de Máquinas</h1>
 
-    <!-- BUSCADOR -->
-    <form id="formBuscador" onsubmit="return false;">
-        <input id="valorBusqueda" type="text" placeholder="Maquina, locación, zona, K22" autocomplete="off">
-        <button id="btnBuscar" class="button-buscar">Buscar</button>
-        <button onclick="nuevaBusqueda()" class="btn-nueva">
-            Nueva búsqueda
-        </button>
-    </form>
+        <!-- BUSCADOR -->
+        <form id="formBuscador" onsubmit="return false;">
+            <input id="valorBusqueda" type="text" placeholder="Maquina, locación, zona, K22" autocomplete="off">
+            <button type="button" id="btnBuscar" class="button-buscar">Buscar</button>
 
-    <div id="resultado"></div>
-
+            <button type="button" onclick="nuevaBusqueda()" class="btn-nueva">
+                Nueva búsqueda
+            </button>
+        </form>
 
 
-</div>
+    </div>
 
 
 
