@@ -150,9 +150,9 @@ function mostrarPlano(zona) {
 
     // Tamaño inicial
     if (window.innerWidth < 768) {
-        img.style.width = "95%";      // mobile
-        img.style.maxHeight = "90vh"; // no sobrepasa pantalla
-        img.style.margin = "15vh auto"; // centrado vertical
+        img.style.width = "100%";      // mobile
+        img.style.maxHeight = "95vh"; // no sobrepasa pantalla
+        img.style.margin = "5vh auto"; // centrado vertical
     } else {
         img.style.width = "70%";      // desktop
         img.style.margin = "0";        // scroll funciona libre
@@ -257,7 +257,10 @@ function mostrarPlanoKiosk(plano) {
         btn.style.padding = "18px 18px";
     }
 
-    btn.onclick = () => overlay.remove();
+    btn.onclick = () => {
+        overlay.remove();
+        btn.blur(); // quita el foco para que no quede el hover fijo
+    };
 
     contenedor.appendChild(img);
     overlay.appendChild(contenedor);
