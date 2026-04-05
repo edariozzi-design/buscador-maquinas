@@ -111,8 +111,6 @@ function buscarMaquina() {
 // ===============================
 // MOSTRAR PLANO
 // ===============================
-
-
 function mostrarPlano(zona) {
     zona = zona.trim();
     const plano = planos[zona];
@@ -133,37 +131,38 @@ function mostrarPlano(zona) {
         z-index:1000;
     `;
 
-// Contenedor central
-const contenedor = document.createElement("div");
-contenedor.style.cssText = `
-    width:100%;
-    min-height:100%;
-    overflow: visible; /* permite scroll libre */
-    position: relative;
-    padding:20px;
-`;
+    // Contenedor central
+    const contenedor = document.createElement("div");
+    contenedor.style.cssText = `
+        width:100%;
+        min-height:100%;
+        overflow: visible; /* permite scroll libre */
+        position: relative;
+        padding:20px;
+    `;
 
-// Imagen del plano
-const img = document.createElement("img");
-img.src = plano;
-img.style.display = "block";
-img.style.height = "auto";
-img.style.margin = "0"; // quitar margin:auto para scroll horizontal
-
-
+    // Imagen del plano
+    const img = document.createElement("img");
+    img.src = plano;
+    img.style.display = "block";
+    img.style.height = "auto";
+    img.style.margin = "0"; // quitar margin:auto para scroll horizontal
 
     // Tamaño inicial
     if (window.innerWidth < 768) {
-        img.style.width = "95%"; // mobile
+        img.style.width = "95%";      // mobile
+        img.style.maxHeight = "90vh"; // no sobrepasa pantalla
+        img.style.margin = "15vh auto"; // centrado vertical
     } else {
-        img.style.width = "70%"; // desktop
+        img.style.width = "70%";      // desktop
+        img.style.margin = "0";        // scroll funciona libre
     }
 
-    // Zoom solo con la rueda cuando el mouse está sobre la imagen
+    // Zoom solo con la rueda
     let escala = 1;
     img.addEventListener("wheel", (e) => {
-        e.preventDefault(); // evita scroll del overlay al hacer zoom
-        escala += e.deltaY < 0 ? 0.15 : -0.15; // rueda arriba = zoom in, abajo = zoom out
+        e.preventDefault();
+        escala += e.deltaY < 0 ? 0.15 : -0.15;
         escala = Math.min(Math.max(escala, 0.5), 4);
         img.style.width = (escala * 100) + "%";
     });
@@ -171,22 +170,27 @@ img.style.margin = "0"; // quitar margin:auto para scroll horizontal
     // Botón volver
     const btn = document.createElement("button");
     btn.innerText = "← Volver";
-    btn.style.cssText = `
-        position:fixed;
-        bottom:20px;
-        right:20px;
-        font-size:32px;
-        padding:18px 26px;
-        background: orange;
-        color:white;
-        border:none;
-        border-radius:10px;
-        cursor:pointer;
-        z-index:1001;
-    `;
+    btn.style.position = "fixed";
+    btn.style.bottom = "20px";
+    btn.style.right = "20px";
+    btn.style.background = "orange";
+    btn.style.color = "white";
+    btn.style.border = "none";
+    btn.style.borderRadius = "10px";
+    btn.style.cursor = "pointer";
+    btn.style.zIndex = "1001";
+
+    if (window.innerWidth < 600) {
+        btn.style.fontSize = "20px";
+        btn.style.padding = "12px 18px";
+    } else {
+        btn.style.fontSize = "26px";
+        btn.style.padding = "18px 18px";
+    }
+
     btn.onclick = () => overlay.remove();
 
-    // Agregar al DOM
+    // 🔹 Añadir al DOM
     contenedor.appendChild(img);
     overlay.appendChild(contenedor);
     overlay.appendChild(btn);
@@ -196,7 +200,6 @@ img.style.margin = "0"; // quitar margin:auto para scroll horizontal
 // ===============================
 // MOSTRAR KIOSK
 // ===============================
-
 function mostrarPlanoKiosk(plano) {
     const overlay = document.createElement("div");
     overlay.style.cssText = `
@@ -209,14 +212,14 @@ function mostrarPlanoKiosk(plano) {
 
     const contenedor = document.createElement("div");
     contenedor.style.cssText = `
-    width:100%;
-    height:100%;
-    overflow:auto;
-    position: relative;
-    display:flex;
-    justify-content:center;  /* centrado horizontal */
-    padding:20px;
-`;
+        width:100%;
+        height:100%;
+        overflow:auto;
+        position: relative;
+        display:flex;
+        justify-content:center;  /* centrado horizontal */
+        padding:20px;
+    `;
 
     const img = document.createElement("img");
     img.src = plano;
@@ -227,7 +230,6 @@ function mostrarPlanoKiosk(plano) {
     if (window.innerWidth < 768) {
         img.style.width = "95%"; // mobile
     } else {
-        // 🔹 Tamaño desktop: todos 30%, excepto Kiosk-sub-espe.jpg
         if (plano.includes("Kiosk-sub-espe.jpg")) {
             img.style.width = "60%"; // tamaño especial
         } else {
@@ -237,19 +239,24 @@ function mostrarPlanoKiosk(plano) {
 
     const btn = document.createElement("button");
     btn.innerText = "← Volver";
-    btn.style.cssText = `
-        position:fixed;
-        bottom:20px;
-        right:20px;
-        font-size:32px;
-        padding:18px 26px;
-        background: orange;
-        color:white;
-        border:none;
-        border-radius:10px;
-        cursor:pointer;
-        z-index:1001;
-    `;
+    btn.style.position = "fixed";
+    btn.style.bottom = "20px";
+    btn.style.right = "20px";
+    btn.style.background = "orange";
+    btn.style.color = "white";
+    btn.style.border = "none";
+    btn.style.borderRadius = "10px";
+    btn.style.cursor = "pointer";
+    btn.style.zIndex = "1001";
+
+    if (window.innerWidth < 600) {
+        btn.style.fontSize = "20px";
+        btn.style.padding = "12px 18px";
+    } else {
+        btn.style.fontSize = "26px";
+        btn.style.padding = "18px 18px";
+    }
+
     btn.onclick = () => overlay.remove();
 
     contenedor.appendChild(img);
