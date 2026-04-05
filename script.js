@@ -150,7 +150,7 @@ function mostrarPlano(zona) {
 
     // Tamaño inicial
     if (window.innerWidth < 768) {
-        img.style.width = "100%";      // mobile
+        img.style.width = "120%";      // mobile
         img.style.maxHeight = "95vh"; // no sobrepasa pantalla
         img.style.margin = "5vh auto"; // centrado vertical
     } else {
@@ -183,6 +183,11 @@ function mostrarPlano(zona) {
     if (window.innerWidth < 600) {
         btn.style.fontSize = "20px";
         btn.style.padding = "12px 18px";
+        
+ // 🔹 Evitar que el :hover quede pegado en mobile
+    btn.addEventListener("touchstart", () => btn.style.background = "darkorange");
+    btn.addEventListener("touchend", () => btn.style.background = "orange");
+
     } else {
         btn.style.fontSize = "26px";
         btn.style.padding = "18px 18px";
