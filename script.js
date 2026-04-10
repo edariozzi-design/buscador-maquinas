@@ -41,7 +41,7 @@ const planos = {
     "47": "planos/G4-Sur.png",
     "45": "planos/G4-Sur.png",
     "49": "planos/Entre-Piso.jpg",
-    "51": "planos/VIP.jpg",
+    "51": "planos/VIP.png",
     "11": "planos/Sub-esp.png",
     "12": "planos/Sub-esp.png",
     "13": "planos/Sub-esp.png",
@@ -168,32 +168,39 @@ function mostrarPlano(zona) {
     });
 
     // Botón volver
-    const btn = document.createElement("button");
-    btn.innerText = "← Volver";
-    btn.style.position = "fixed";
-    btn.style.bottom = "20px";
-    btn.style.right = "20px";
-    btn.style.background = "orange";
-    btn.style.color = "white";
-    btn.style.border = "none";
-    btn.style.borderRadius = "10px";
-    btn.style.cursor = "pointer";
-    btn.style.zIndex = "1001";
+const btn = document.createElement("button");
+btn.innerText = "← Volver";
+btn.style.position = "fixed";
+btn.style.bottom = "20px";
+btn.style.right = "20px";
+btn.style.background = "orange";
+btn.style.color = "white";
+btn.style.border = "none";
+btn.style.borderRadius = "10px";
+btn.style.cursor = "pointer";
+btn.style.zIndex = "1001";
 
-    if (window.innerWidth < 600) {
-        btn.style.fontSize = "20px";
-        btn.style.padding = "12px 18px";
-        
- // 🔹 Evitar que el :hover quede pegado en mobile
-    btn.addEventListener("touchstart", () => btn.style.background = "darkorange");
-    btn.addEventListener("touchend", () => btn.style.background = "orange");
+// Ajuste mobile / desktop
+if (window.innerWidth < 768) {
+    btn.style.fontSize = "20px";
+    btn.style.padding = "12px 18px";
 
-    } else {
-        btn.style.fontSize = "26px";
-        btn.style.padding = "18px 18px";
-    }
+    // 🔹 Mobile: quitar cualquier hover/focus que quede pegado
+    btn.addEventListener("touchstart", () => {
+        btn.style.background = "darkorange"; // feedback de toque
+    });
+    btn.addEventListener("touchend", () => {
+        btn.style.background = "orange";     // vuelve al color original
+        btn.blur();                            // quita focus pegado
+    });
+} else {
+    btn.style.fontSize = "26px";
+    btn.style.padding = "18px 18px";
+}
 
-    btn.onclick = () => overlay.remove();
+btn.onclick = () => {
+    overlay.remove();
+};
 
     // 🔹 Añadir al DOM
     contenedor.appendChild(img);
@@ -281,9 +288,9 @@ const planosKiosk = {
     "K18": "kiosk/Kiosk-sub-espe.jpg",
     "K27": "kiosk/Kiosk-sub-espe.jpg",
     "K34": "kiosk/Kiosk-sub-espe.jpg",
-    "K24": "kiosk/kiosk-G4.jpg",
-    "K30": "kiosk/kiosk-G4.jpg",
-    "K31": "kiosk/kiosk-G4.jpg",
+    "K24": "kiosk/Kiosk-G4.jpg",
+    "K30": "kiosk/Kiosk-G4.jpg",
+    "K31": "Kiosk/Kiosk-G4.jpg",
     "K25": "kiosk/Kiosk-EP.jpg",
     "K28": "kiosk/Kiosk-EP.jpg",
     "K22": "kiosk/Kiosk-Digital.jpg",
