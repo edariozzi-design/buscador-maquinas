@@ -42,7 +42,7 @@ const planos = {
     "47": "planos/G4-Sur.png",
     "45": "planos/G4-Sur.png",
     "49": "planos/Entre-Piso.jpg",
-    "51": "/planos/Vip.png",
+    "51": "planos/Vip.png",
     "11": "planos/Sub-esp.png",
     "12": "planos/Sub-esp.png",
     "13": "planos/Sub-esp.png",
