@@ -41,7 +41,7 @@ const planos = {
     "47": "planos/G4-Sur.png",
     "45": "planos/G4-Sur.png",
     "49": "planos/Entre-Piso.jpg",
-    "51": "planos/Vip.png",
+    "51": "planos/VIP.png",
     "11": "planos/Sub-esp.png",
     "12": "planos/Sub-esp.png",
     "13": "planos/Sub-esp.png",
@@ -67,7 +67,7 @@ const planosKiosk = {
     "K34": "kiosk/Kiosk-sub-espe.jpg",
     "K24": "kiosk/Kiosk-G4.jpg",
     "K30": "kiosk/Kiosk-G4.jpg",
-    "K31": "Kiosk/Kiosk-G4.jpg",
+    "K31": "kiosk/Kiosk-G4.jpg",
     "K25": "kiosk/Kiosk-EP.jpg",
     "K28": "kiosk/Kiosk-EP.jpg",
     "K22": "kiosk/Kiosk-Digital.jpg",
@@ -235,7 +235,9 @@ function mostrarPlanoKiosk(plano) {
     img.style.height = "auto";
 
     img.style.width = window.innerWidth < 768 ? "95%" :
-        (plano.includes("Kiosk-sub-espe.jpg") ? "60%" : "30%");
+        (plano.includes("Kiosk-sub-espe.jpg") || plano.includes("Kiosk-G4.jpg"))
+    ? "60%"
+    : "30%"
 
     const btn = document.createElement("button");
     btn.innerText = "← Volver";
