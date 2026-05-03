@@ -26,6 +26,7 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
 // ===============================
 // PLANOS
 // ===============================
+
 const planos = {
     "54": "planos/M7.jpg",
     "55": "planos/M7.jpg",
@@ -60,6 +61,7 @@ const planos = {
 // ===============================
 // KIOSK
 // ===============================
+
 const planosKiosk = {
     "K17": "kiosk/Kiosk-sub-espe.jpg",
     "K18": "kiosk/Kiosk-sub-espe.jpg",
@@ -83,6 +85,7 @@ const planosKiosk = {
 // ===============================
 // BUSCAR MAQUINA
 // ===============================
+
 function buscarMaquina() {
     const valor = document.getElementById("valorBusqueda").value.trim().toLowerCase();
     const resultado = document.getElementById("resultado");
@@ -133,6 +136,7 @@ function buscarMaquina() {
 // ===============================
 // MOSTRAR PLANO
 // ===============================
+
 function mostrarPlano(zona) {
     zona = zona.trim();
     const plano = planos[zona];
@@ -187,7 +191,7 @@ function mostrarPlano(zona) {
         position: fixed;
         bottom:20px;
         right:20px;
-        background:orange;
+        background:rgb(42, 55, 243);
         color:white;
         border:none;
         border-radius:10px;
@@ -208,6 +212,7 @@ function mostrarPlano(zona) {
 // ===============================
 // MOSTRAR KIOSK
 // ===============================
+
 function mostrarPlanoKiosk(plano) {
     const overlay = document.createElement("div");
     overlay.style.cssText = `
@@ -269,6 +274,7 @@ function mostrarPlanoKiosk(plano) {
 // ===============================
 // BUSCAR KIOSK
 // ===============================
+
 function buscarKiosk() {
     const valor = document.getElementById("valorBusqueda").value.trim().toUpperCase();
     const plano = planosKiosk[valor];
@@ -282,6 +288,7 @@ function buscarKiosk() {
 // ===============================
 // BUSQUEDA GENERAL
 // ===============================
+
 function buscarGeneral() {
     const valor = document.getElementById("valorBusqueda").value.trim();
     if (/^K0*\d{1,2}$/i.test(valor)) {
@@ -306,6 +313,7 @@ function nuevaBusqueda() {
 // ===============================
 // EVENTOS
 // ===============================
+
 window.addEventListener("load", () => {
     document.getElementById("btnBuscar")
         .addEventListener("click", buscarGeneral);

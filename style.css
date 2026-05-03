@@ -6,9 +6,10 @@
 }
 
 /* ===== BODY ===== */
+
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-image: url(./img/fondo-slots2.png);
+    background-image: url(./img/fondo-busc.avif);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -20,6 +21,7 @@ body {
 }
 
 /* ===== LOGO ===== */
+
 .logo-img {
     width: 120px;
     border-radius: 10px;
@@ -27,10 +29,11 @@ body {
 }
 
 /* ===== TITULO ===== */
+
 h1 {
     margin: 0 auto 25px auto;
     padding: 15px 30px;
-    background: linear-gradient(rgb(177, 117, 54));
+    background: linear-gradient (#003366);
     color: rgb(251, 250, 249);
     border-radius: 12px;
     font-weight: 500;
@@ -43,6 +46,7 @@ h1 {
 }
 
 /* ===== INPUT ===== */
+
 #valorBusqueda {
     display: block;
     margin: 0 auto 15px auto;
@@ -63,6 +67,7 @@ h1 {
 }
 
 /* ===== BOTONES BASE ===== */
+
 button {
     display: block;
     margin: 0 auto 15px auto;
@@ -76,8 +81,9 @@ button {
 }
 
 /* ===== BOTÓN BUSCAR ===== */
+
 .button-buscar {
-    background: linear-gradient(135deg, #f4f5f5, rgb(242, 145, 42));
+    background: linear-gradient(135deg, #f4f5f5, rgb(42, 55, 243));
     color: #111;
 }
 
@@ -96,17 +102,17 @@ button {
 }
 
 /* ===== BOTÓN NUEVA ===== */
+
 .btn-nueva {
     padding: 10px 15px;
     border-radius: 6px;
-    background: linear-gradient(135deg, #f4f5f5, rgb(242, 145, 42));
+    background: linear-gradient(135deg, #f4f5f5, rgb(42, 55, 243));
     color: #050505;
 }
 
 .btn-nueva:hover {
     background: rgb(242, 145, 42);
 }
-
 
 
 .contenedor {
@@ -117,8 +123,8 @@ button {
 }
 
 
-
 /* ===== BUSCADOR ===== */
+
 #formBuscador {
     display: flex;
     flex-direction: column;
@@ -127,13 +133,15 @@ button {
 }
 
 /* ===== RESULTADO ===== */
+
 #resultado {
     margin-top: 20px;
 }
 
 /* ===== TARJETAS ===== */
+
 .tarjeta {
-    background: linear-gradient(135deg, #f4f5f5, rgb(242, 145, 42));
+    background: linear-gradient(135deg, #f4f5f5,  rgb(42, 55, 243));
     border-radius: 12px;
     padding: 15px;
     margin: 15px auto;
@@ -141,6 +149,7 @@ button {
     max-width: 400px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     text-align: center;
+    border: 3px solid #ffffff;
 }
 
 .tarjeta h3 {
@@ -149,8 +158,9 @@ button {
 }
 
 /* ===== LINK ZONA ===== */
+
 .zona-link {
-    color: #5100ff;
+    color: #b71414;
     cursor: pointer;
     text-decoration: none;
     font-weight: bolder;
@@ -161,6 +171,7 @@ button {
 }
 
 /* ===== ERROR ===== */
+
 .mensaje-error {
     background: #f8d7da;
     color: #842029;
