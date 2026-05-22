@@ -53,9 +53,13 @@ const planos = {
     "18": "planos/Sub-esp.png",
     "19": "planos/Sub-esp.png",
     "20": "planos/Sub-esp.png",
-    "21": "planos/balcon-esp.png",
-    "22": "planos/balcon-esp.png",
-    "62": "planos/dolar.jpg"
+    "21": "planos/Balcon-esp.png",
+    "22": "planos/Balcon-esp.png",
+    "62": "planos/dolar.jpg",
+    "61": "planos/M15.png",
+    "60": "planos/M15.png",
+    "59": "planos/M15.png",
+    "58": "planos/M15.png"
 };
 
 // ===============================
@@ -63,23 +67,23 @@ const planos = {
 // ===============================
 
 const planosKiosk = {
-    "K17": "kiosk/Kiosk-sub-espe.jpg",
-    "K18": "kiosk/Kiosk-sub-espe.jpg",
-    "K27": "kiosk/Kiosk-sub-espe.jpg",
-    "K34": "kiosk/Kiosk-sub-espe.jpg",
-    "K24": "kiosk/Kiosk-G4.jpg",
-    "K30": "kiosk/Kiosk-G4.jpg",
-    "K31": "kiosk/Kiosk-G4.jpg",
-    "K25": "kiosk/Kiosk-EP.jpg",
-    "K28": "kiosk/Kiosk-EP.jpg",
-    "K22": "kiosk/Kiosk-Digital.jpg",
-    "K16": "kiosk/M11-Libertador.jpg",
-    "K20": "kiosk/M11-Libertador.jpg",
-    "K7": "kiosk/M11-Pista.jpg",
-    "K8": "kiosk/M11-Pista.jpg",
-    "K10": "kiosk/M11-Pista.jpg",
-    "K6": "kiosk/M15.jpg",
-    "K33": "kiosk/Balcon-esp.jpg"
+    "K17": "kiosk/Sub-esp-izq.png",
+    "K18": "kiosk/Sub-esp-izq.png",
+    "K27": "kiosk/Sub-esp-der.png",
+    "K34": "kiosk/Sub-esp-der.png",
+    "K24": "kiosk/Kiosk-G4.png",
+    "K30": "kiosk/Kiosk-G4.png",
+    "K31": "kiosk/Kiosk-G4.png",
+    "K25": "kiosk/Kiosk-EP.png",
+    "K28": "kiosk/Kiosk-EP.png",
+    "K22": "kiosk/Kiosk-Digital.png",
+    "K16": "kiosk/M11-Libertador.png",
+    "K20": "kiosk/M11-Libertador.png",
+    "K7": "kiosk/M11-Pista.png",
+    "K8": "kiosk/M11-Pista.png",
+    "K10": "kiosk/M11-Pista.png",
+    "K6": "kiosk/M15.png",
+    "K33": "kiosk/Balcon-esp.png"
 };
 
 // ===============================
@@ -250,7 +254,7 @@ function mostrarPlanoKiosk(plano) {
         position: fixed;
         bottom:20px;
         right:20px;
-        background:orange;
+        background: rgb(42, 55, 243);
         color:white;
         border:none;
         border-radius:10px;
