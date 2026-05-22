@@ -1,3 +1,4 @@
+
 // ===============================
 // Cargar CSV y máquinas
 // ===============================
@@ -23,6 +24,7 @@ fetch("buscador_maquinas.csv?v=" + new Date().getTime())
     })
     .catch(e => console.error(e));
 
+
 // ===============================
 // PLANOS
 // ===============================
@@ -41,7 +43,7 @@ const planos = {
     "48": "planos/G4-Sur.png",
     "47": "planos/G4-Sur.png",
     "45": "planos/G4-Sur.png",
-    "49": "planos/Entre-Piso.jpg",
+    "49": "planos/Entre-Piso.png",
     "51": "planos/VIP.png",
     "11": "planos/Sub-esp.png",
     "12": "planos/Sub-esp.png",
@@ -246,7 +248,7 @@ function mostrarPlanoKiosk(plano) {
     img.style.width = window.innerWidth < 768 ? "95%" :
         (plano.includes("Kiosk-sub-espe.jpg") || plano.includes("Kiosk-G4.jpg"))
     ? "60%"
-    : "30%"
+    : "30%";
 
     const btn = document.createElement("button");
     btn.innerText = "← Volver";
@@ -329,4 +331,5 @@ window.addEventListener("load", () => {
         .addEventListener("keypress", e => {
             if (e.key === "Enter") buscarGeneral();
         });
+
 });
